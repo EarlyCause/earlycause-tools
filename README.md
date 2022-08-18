@@ -1,6 +1,6 @@
 # earlycause-tools
 
-This repository provides a way to share tools that support the [Early Cause Portal](https://portal.earlycause.eu/).
+This repository provides a way to share tools that support the [EarlyCause Portal](https://portal.earlycause.eu/).
 
 ## Submission process
 
@@ -49,11 +49,11 @@ Now the changes you have made are local. In order to push them to your remote fo
 
 ![Push](media/instructions-gh-desktop-push.png "Push")
 
-Now you have to create a pull request for the Early Cause team to review. You can do so in two ways:
+Now you have to create a pull request for the EarlyCause team to review. You can do so in two ways:
 
 - On GitHub Desktop, in the menu bar, click on "Branch" then "Create pull request".
 - On the GitHub website, in your forked repository, click on "Contribute" then "Open pull request" (see below)
 
 ![PR](media/instructions-gh-pr.png "PR")
 
-Once you create the pull request, the Early Cause team will be notified and will be able to review the changes. Once approved, these will be merged in the parent repository.
+Once you create the pull request, the EarlyCause team will be notified and will be able to review the changes. Once approved, these will be merged in the parent repository.
