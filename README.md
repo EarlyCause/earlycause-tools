@@ -2,6 +2,21 @@
 
 This repository provides a way to share tools that support the [EarlyCause Portal](https://portal.earlycause.eu/).
 
+For any questions please contact us at [ena-earlycause@ebi.ac.uk](mailto:ena-earlycause@ebi.ac.uk).
+
+## Glossary
+
+- *Repository* - a filesystem folder tracked by a version control system (VCS) such as Git.
+- *Forking* - copying a main repository to your own GitHub account.
+- *Cloning* - downloading a repository to your local machine.
+- *Committing* - saving local changes to the repository.
+- *Pushing* - pushing local committed changes to the remote repository.
+- *Pull request* - process of merging changes from your repository to the main repository.
+
+In the following diagram you can find how the above concepts interact:
+
+<img src="media/instructions-general.png?raw=true" width="650">
+
 ## Submission process
 
 Before submitting your tools/scripts you have to create a [GitHub](https://github.com/) account, if you haven't already.
@@ -25,7 +40,7 @@ Once installed, sign-in to GitHub:
 
 ### 3. Clone the repository
 
-Now you can clone the forked repository (the one you copied) by searching it through GitHub Desktop and clicking "Clone earlycause-tools":
+Now you can clone (download) the forked repository by searching it through GitHub Desktop and clicking "Clone earlycause-tools":
 
 ![Clone repository](media/instructions-gh-desktop-clone.png "Clone repository")
 
@@ -35,7 +50,8 @@ Once the repository is cloned, you will be prompted on how you would like to use
 
 ### 4. Add tools
 
-Now you can add your tools/scripts by opening the repository folder and locating your institution folder.
+Now you can add your tools/scripts to the repository.
+There should be a folder for your institution in the repository. If this isn't present, please contact [ena-earlycause@ebi.ac.uk](mailto:ena-earlycause@ebi.ac.uk) for further details.
 
 Once you add files to your institution folder you will see the changes in GitHub Desktop as follows:
 
