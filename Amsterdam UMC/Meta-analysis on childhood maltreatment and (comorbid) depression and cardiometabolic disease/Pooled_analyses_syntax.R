@@ -2810,7 +2810,7 @@ crosstablogistic_function(Cohort1_model1,
                           Cohort12_model1,
                           Cohort13_model1)
 # Run model, compute odds ratios and calculate weights of each cohort in meta-analysis
-RE_model1 <- rma(yi = Beta, sei = SE, data = Model1)
+RE_model1 <- rma(yi = 'log(OR)', sei = SE, data = Model1)
 summary(RE_model1)
 OR_model1 <- predict(RE_model1, transf=exp, digits=3)
 weights_model1 <- paste0(formatC(weights(RE_model1), format="f", digits=1, width=4), "%")
@@ -2832,7 +2832,7 @@ crosstablogistic_function(Cohort1_model2,
                           Cohort13_model2)
 
 # Run model, compute odds ratios and calculate weights of each cohort in meta-analysis
-RE_model2 <- rma(yi = Beta, sei = SE, data = Model2)
+RE_model2 <- rma(yi = 'log(OR)', sei = SE, data = Model2)
 summary(RE_model2)
 OR_model2 <- predict(RE_model2, transf=exp, digits=3)
 weights_model2 <- paste0(formatC(weights(RE_model2), format="f", digits=1, width=4), "%")
@@ -2854,7 +2854,7 @@ crosstablogistic_function(Cohort1_model2a,
                           Cohort13_model2a) #One cohort (GenR mothers) has to be excluded because crosstab cell < 5
 
 # Run model, compute odds ratios and calculate weights of each cohort in meta-analysis
-RE_model2a <- rma(yi = Beta, sei = SE, data = Model2a[-which(rownames(Model2a)%in%"GenR"),])
+RE_model2a <- rma(yi = 'log(OR)', sei = SE, data = Model2a[-which(rownames(Model2a)%in%"GenR"),])
 summary(RE_model2a)
 OR_model2a <- predict(RE_model2a, transf=exp, digits=3)
 weights_model2a <- paste0(formatC(weights(RE_model2a), format="f", digits=1, width=4), "%")
@@ -2876,7 +2876,7 @@ crosstablogistic_function(Cohort1_model2b,
                           Cohort13_model2b) #Two cohorts (ALSPAC partners and MACS) have to be excluded because crosstab cell < 5
 
 # Run model, compute odds ratios and calculate weights of each cohort in meta-analysis
-RE_model2b <- rma(yi = Beta, sei = SE, data = Model2b[-which(rownames(Model2b)%in%c("ALSPACpartners","MACS")),])
+RE_model2b <- rma(yi = 'log(OR)', sei = SE, data = Model2b[-which(rownames(Model2b)%in%c("ALSPACpartners","MACS")),])
 summary(RE_model2b)
 OR_model2b <- predict(RE_model2b, transf=exp, digits=3)
 weights_model2b <- paste0(formatC(weights(RE_model2b), format="f", digits=1, width=4), "%")
@@ -2899,30 +2899,30 @@ crosstabmultinomial_function(Cohort1_model3,
 
 # Run model, compute odds ratios and calculate weights of each cohort in meta-analysis
 # Outcome level = depression
-RE_model3_dep <- rma(yi = Beta, sei = SE, data = Model3_dep[-which(rownames(Model3_dep)%in%c("ALSPACpartners","GenR","MACS","NESDO")),])
+RE_model3_dep <- rma(yi = 'log(OR)', sei = SE, data = Model3_dep[-which(rownames(Model3_dep)%in%c("ALSPACpartners","GenR","MACS","NESDO")),])
 summary(RE_model3_dep)
 OR_model3_dep <- predict(RE_model3_dep, transf=exp, digits=3)
 weights_model3_dep <- paste0(formatC(weights(RE_model3_dep), format="f", digits=1, width=4), "%")
 
 # Outcome level = cardiometabolic disease
-RE_model3_cmd <- rma(yi = Beta, sei = SE, data = Model3_cmd[-which(rownames(Model3_cmd)%in%c("ALSPACpartners","GenR","MACS","NESDO")),])
+RE_model3_cmd <- rma(yi = 'log(OR)', sei = SE, data = Model3_cmd[-which(rownames(Model3_cmd)%in%c("ALSPACpartners","GenR","MACS","NESDO")),])
 summary(RE_model3_cmd)
 OR_model3_cmd <- predict(RE_model3_cmd, transf=exp, digits=3)
 weights_model3_cmd <- paste0(formatC(weights(RE_model3_cmd), format="f", digits=1, width=4), "%")
 
 # Outcome level = comorbidity
-RE_model3_comorb <- rma(yi = Beta, sei = SE, data = Model3_comorb[-which(rownames(Model3_comorb)%in%c("ALSPACpartners","GenR","MACS","NESDO")),])
+RE_model3_comorb <- rma(yi = 'log(OR)', sei = SE, data = Model3_comorb[-which(rownames(Model3_comorb)%in%c("ALSPACpartners","GenR","MACS","NESDO")),])
 summary(RE_model3_comorb)
 OR_model3_comorb <- predict(RE_model3_comorb, transf=exp, digits=3)
 weights_model3_comorb <- paste0(formatC(weights(RE_model3_comorb), format="f", digits=1, width=4), "%")
 
 # Subgroup analysis - Fit random-effects model in the two subgroups (case-control vs. population-based)
-RE_model3_dep_cas <- rma(yi = Beta, sei = SE, subset=(Cohort_type=="Case-control"), data=Model4_dep[-which(rownames(Model4_dep)==c("ALSPACpartners","GenR","MACS","NESDO")),])
-RE_model3_cmd_cas <- rma(yi = Beta, sei = SE, subset=(Cohort_type=="Case-control"), data=Model4_cmd[-which(rownames(Model4_cmd)==c("ALSPACpartners","GenR","MACS","NESDO")),])
-RE_model3_comorb_cas <- rma(yi = Beta, sei = SE, subset=(Cohort_type=="Case-control"), data=Model4_comorb[-which(rownames(Model4_comorb)==c("ALSPACpartners","GenR","MACS","NESDO")),])
-RE_model3_dep_pop <- rma(yi = Beta, sei = SE, subset=(Cohort_type=="Population-based"), data=Model4_dep[-which(rownames(Model4_dep)==c("ALSPACpartners","GenR","MACS","NESDO")),])
-RE_model3_cmd_pop <- rma(yi = Beta, sei = SE, subset=(Cohort_type=="Population-based"), data=Model4_cmd[-which(rownames(Model4_cmd)==c("ALSPACpartners","GenR","MACS","NESDO")),])
-RE_model3_comorb_pop <- rma(yi = Beta, sei = SE, subset=(Cohort_type=="Population-based"), data=Model4_comorb[-which(rownames(Model4_comorb)==c("ALSPACpartners","GenR","MACS","NESDO")),])
+RE_model3_dep_cas <- rma(yi = 'log(OR)', sei = SE, subset=(Cohort_type=="Case-control"), data=Model4_dep[-which(rownames(Model4_dep)==c("ALSPACpartners","GenR","MACS","NESDO")),])
+RE_model3_cmd_cas <- rma(yi = 'log(OR)', sei = SE, subset=(Cohort_type=="Case-control"), data=Model4_cmd[-which(rownames(Model4_cmd)==c("ALSPACpartners","GenR","MACS","NESDO")),])
+RE_model3_comorb_cas <- rma(yi = 'log(OR)', sei = SE, subset=(Cohort_type=="Case-control"), data=Model4_comorb[-which(rownames(Model4_comorb)==c("ALSPACpartners","GenR","MACS","NESDO")),])
+RE_model3_dep_pop <- rma(yi = 'log(OR)', sei = SE, subset=(Cohort_type=="Population-based"), data=Model4_dep[-which(rownames(Model4_dep)==c("ALSPACpartners","GenR","MACS","NESDO")),])
+RE_model3_cmd_pop <- rma(yi = 'log(OR)', sei = SE, subset=(Cohort_type=="Population-based"), data=Model4_cmd[-which(rownames(Model4_cmd)==c("ALSPACpartners","GenR","MACS","NESDO")),])
+RE_model3_comorb_pop <- rma(yi = 'log(OR)', sei = SE, subset=(Cohort_type=="Population-based"), data=Model4_comorb[-which(rownames(Model4_comorb)==c("ALSPACpartners","GenR","MACS","NESDO")),])
 
 # Model 4: DISEASE_STAT ~ CM + Age + Sex + Educ + Smoke + Alcohol + PhyAct
 # Check for each cohort whether they have 5 or more cases in each exposure x outcome crosstab cell
@@ -2942,19 +2942,19 @@ crosstabmultinomial_function(Cohort1_model4,
 
 # Run model, compute odds ratios and calculate weights of each cohort in meta-analysis
 # Outcome level = depression
-RE_model4_dep <- rma(yi = Beta, sei = SE, data = Model4_dep[-which(rownames(Model4_dep)%in%c("ALSPACpartners","GenR","MACS","NESDO")),])
+RE_model4_dep <- rma(yi = 'log(OR)', sei = SE, data = Model4_dep[-which(rownames(Model4_dep)%in%c("ALSPACpartners","GenR","MACS","NESDO")),])
 summary(RE_model4_dep)
 OR_model4_dep <- predict(RE_model4_dep, transf=exp, digits=3)
 weights_model4_dep <- paste0(formatC(weights(RE_model4_dep), format="f", digits=1, width=4), "%")
 
 # Outcome level = cardiometabolic disease
-RE_model4_cmd <- rma(yi = Beta, sei = SE, data = Model4_cmd[-which(rownames(Model4_cmd)%in%c("ALSPACpartners","GenR","MACS","NESDO")),])
+RE_model4_cmd <- rma(yi = 'log(OR)', sei = SE, data = Model4_cmd[-which(rownames(Model4_cmd)%in%c("ALSPACpartners","GenR","MACS","NESDO")),])
 summary(RE_model4_cmd)
 OR_model4_cmd <- predict(RE_model4_cmd, transf=exp, digits=3)
 weights_model4_cmd <- paste0(formatC(weights(RE_model4_cmd), format="f", digits=1, width=4), "%")
 
 # Outcome level = comorbidity
-RE_model4_comorb <- rma(yi = Beta, sei = SE, data = Model4_comorb[-which(rownames(Model4_comorb)%in%c("ALSPACpartners","GenR","MACS","NESDO")),])
+RE_model4_comorb <- rma(yi = 'log(OR)', sei = SE, data = Model4_comorb[-which(rownames(Model4_comorb)%in%c("ALSPACpartners","GenR","MACS","NESDO")),])
 summary(RE_model4_comorb)
 OR_model4_comorb <- predict(RE_model4_comorb, transf=exp, digits=3)
 weights_model4_comorb <- paste0(formatC(weights(RE_model4_comorb), format="f", digits=1, width=4), "%")
@@ -2977,19 +2977,19 @@ crosstabmultinomial_function(Cohort1_model5a,
 
 # Run model, compute odds ratios and calculate weights of each cohort in meta-analysis
 # Outcome level = depression
-RE_model5a_dep <- rma(yi = Beta, sei = SE, data = Model5a_dep[-which(rownames(Model5a_dep)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","NESDO","SHIP_Legend")),]) #ALSPAC mothers and GenR mothers are also excluded because they do not have any male
+RE_model5a_dep <- rma(yi = 'log(OR)', sei = SE, data = Model5a_dep[-which(rownames(Model5a_dep)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","NESDO","SHIP_Legend")),]) #ALSPAC mothers and GenR mothers are also excluded because they do not have any male
 summary(RE_model5a_dep)
 OR_model5a_dep <- predict(RE_model5a_dep, transf=exp, digits=3)
 weights_model5a_dep <- paste0(formatC(weights(RE_model5a_dep), format="f", digits=1, width=4), "%")
 
 # Outcome level = cardiometabolic disease
-RE_model5a_cmd <- rma(yi = Beta, sei = SE, data = Model5a_cmd[-which(rownames(Model5a_cmd)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","NESDO","SHIP_Legend")),]) #ALSPAC mothers and GenR mothers are also excluded because they do not have any male
+RE_model5a_cmd <- rma(yi = 'log(OR)', sei = SE, data = Model5a_cmd[-which(rownames(Model5a_cmd)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","NESDO","SHIP_Legend")),]) #ALSPAC mothers and GenR mothers are also excluded because they do not have any male
 summary(RE_model5a_cmd)
 OR_model5a_cmd <- predict(RE_model5a_cmd, transf=exp, digits=3)
 weights_model5a_cmd <- paste0(formatC(weights(RE_model5a_cmd), format="f", digits=1, width=4), "%")
 
 # Outcome level = comorbidity
-RE_model5a_comorbd <- rma(yi = Beta, sei = SE, data = Model5a_comorb[-which(rownames(Model5a_comorb)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","NESDO","SHIP_Legend")),]) #ALSPAC mothers and GenR mothers are also excluded because they do not have any male
+RE_model5a_comorbd <- rma(yi = 'log(OR)', sei = SE, data = Model5a_comorb[-which(rownames(Model5a_comorb)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","NESDO","SHIP_Legend")),]) #ALSPAC mothers and GenR mothers are also excluded because they do not have any male
 summary(RE_model5a_comorbd)
 OR_model5a_comorb <- predict(RE_model5a_comorbd, transf=exp, digits=3)
 weights_model5a_comorb <- paste0(formatC(weights(RE_model5a_comorbd), format="f", digits=1, width=4), "%")
@@ -3012,19 +3012,19 @@ crosstabmultinomial_function(Cohort1_model5b,
 
 # Run model, compute odds ratios and calculate weights of each cohort in meta-analysis
 # Outcome level = depression
-RE_model5b_dep <- rma(yi = Beta, sei = SE, data = Model5b_dep[-which(rownames(Model5b_dep)%in%c("ALSPAC_partners","GenR","MACS","NEMESIS-1","NESDO")),]) #ALSPAC partners are also excluded because they do not have any female
+RE_model5b_dep <- rma(yi = 'log(OR)', sei = SE, data = Model5b_dep[-which(rownames(Model5b_dep)%in%c("ALSPAC_partners","GenR","MACS","NEMESIS-1","NESDO")),]) #ALSPAC partners are also excluded because they do not have any female
 summary(RE_model5b_dep)
 OR_model5b_dep <- predict(RE_model5b_dep, transf=exp, digits=3)
 weights_model5b_dep <- paste0(formatC(weights(RE_model5b_dep), format="f", digits=1, width=4), "%")
 
 # Outcome level = cardiometabolic disease
-RE_model5b_cmd <- rma(yi = Beta, sei = SE, data = Model5b_cmd[-which(rownames(Model5b_cmd)%in%c("ALSPAC_partners","GenR","MACS","NEMESIS-1","NESDO")),]) #ALSPAC mothers and GenR mothers are also excluded because they do not have any female
+RE_model5b_cmd <- rma(yi = 'log(OR)', sei = SE, data = Model5b_cmd[-which(rownames(Model5b_cmd)%in%c("ALSPAC_partners","GenR","MACS","NEMESIS-1","NESDO")),]) #ALSPAC mothers and GenR mothers are also excluded because they do not have any female
 summary(RE_model5b_cmd)
 OR_model5b_cmd <- predict(RE_model5b_cmd, transf=exp, digits=3)
 weights_model5b_cmd <- paste0(formatC(weights(RE_model5b_cmd), format="f", digits=1, width=4), "%")
 
 # Outcome level = comorbidity
-RE_model5b_comorbd <- rma(yi = Beta, sei = SE, data = Model5b_comorb[-which(rownames(Model5b_comorb)%in%c("ALSPAC_partners","GenR","MACS","NEMESIS-1","NESDO")),]) #ALSPAC mothers and GenR mothers are also excluded because they do not have any female
+RE_model5b_comorbd <- rma(yi = 'log(OR)', sei = SE, data = Model5b_comorb[-which(rownames(Model5b_comorb)%in%c("ALSPAC_partners","GenR","MACS","NEMESIS-1","NESDO")),]) #ALSPAC mothers and GenR mothers are also excluded because they do not have any female
 summary(RE_model5b_comorbd)
 OR_model5b_comorb <- predict(RE_model5b_comorbd, transf=exp, digits=3)
 weights_model5b_comorb <- paste0(formatC(weights(RE_model5b_comorbd), format="f", digits=1, width=4), "%")
@@ -3047,55 +3047,55 @@ crosstabmultinomial_multippredictors_function(Cohort1_model6,
 
 # Run model, compute odds ratios and calculate weights of each cohort in meta-analysis
 # Predictor = physical abuse, outcome level = depression
-RE_model6_dep_pa <- rma(yi = Beta, sei = SE, data = Model6_dep_pa[-which(rownames(Model6_dep_pa)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
+RE_model6_dep_pa <- rma(yi = 'log(OR)', sei = SE, data = Model6_dep_pa[-which(rownames(Model6_dep_pa)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
 summary(RE_model6_dep_pa)
 OR_model6_dep_pa <- predict(RE_model6_dep_pa, transf=exp, digits=3)
 weights_model6_dep_pa <- paste0(formatC(weights(RE_model6_dep_pa), format="f", digits=1, width=4), "%")
 
 # Predictor = physical abuse, outcome level = cardiometabolic disease
-RE_model6_cmd_pa <- rma(yi = Beta, sei = SE, data = Model6_cmd_pa[-which(rownames(Model6_cmd_pa)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
+RE_model6_cmd_pa <- rma(yi = 'log(OR)', sei = SE, data = Model6_cmd_pa[-which(rownames(Model6_cmd_pa)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
 summary(RE_model6_cmd_pa)
 OR_model6_cmd_pa <- predict(RE_model6_cmd_pa, transf=exp, digits=3)
 weights_model6_cmd_pa <- paste0(formatC(weights(RE_model6_cmd_pa), format="f", digits=1, width=4), "%")
 
 # Predictor = physical abuse, outcome level = comorbidity
-RE_model6_comorb_pa <- rma(yi = Beta, sei = SE, data = Model6_comorb_pa[-which(rownames(Model6_comorb_pa)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
+RE_model6_comorb_pa <- rma(yi = 'log(OR)', sei = SE, data = Model6_comorb_pa[-which(rownames(Model6_comorb_pa)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
 summary(RE_model6_comorb_pa)
 OR_model6_comorb_pa <- predict(RE_model6_comorb_pa, transf=exp, digits=3)
 weights_model6_comorb_pa <- paste0(formatC(weights(RE_model6_comorb_pa), format="f", digits=1, width=4), "%")
 
 # Predictor = emotional abuse, outcome level = depression
-RE_model6_dep_ea <- rma(yi = Beta, sei = SE, data = Model6_dep_ea[-which(rownames(Model6_dep_ea)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
+RE_model6_dep_ea <- rma(yi = 'log(OR)', sei = SE, data = Model6_dep_ea[-which(rownames(Model6_dep_ea)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
 summary(RE_model6_dep_ea)
 OR_model6_dep_ea <- predict(RE_model6_dep_ea, transf=exp, digits=3)
 weights_model6_dep_ea <- paste0(formatC(weights(RE_model6_dep_ea), format="f", digits=1, width=4), "%")
 
 # Predictor = emotional abuse, outcome level = cardiometabolic disease
-RE_model6_cmd_ea <- rma(yi = Beta, sei = SE, data = Model6_cmd_ea[-which(rownames(Model6_cmd_ea)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
+RE_model6_cmd_ea <- rma(yi = 'log(OR)', sei = SE, data = Model6_cmd_ea[-which(rownames(Model6_cmd_ea)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
 summary(RE_model6_cmd_ea)
 OR_model6_cmd_ea <- predict(RE_model6_cmd_ea, transf=exp, digits=3)
 weights_model6_cmd_ea <- paste0(formatC(weights(RE_model6_cmd_ea), format="f", digits=1, width=4), "%")
 
 # Predictor = emotional abuse, outcome level = comorbidity
-RE_model6_comorb_ea <- rma(yi = Beta, sei = SE, data = Model6_comorb_ea[-which(rownames(Model6_comorb_ea)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
+RE_model6_comorb_ea <- rma(yi = 'log(OR)', sei = SE, data = Model6_comorb_ea[-which(rownames(Model6_comorb_ea)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
 summary(RE_model6_comorb_ea)
 OR_model6_comorb_ea <- predict(RE_model6_comorb_ea, transf=exp, digits=3)
 weights_model6_comorb_ea <- paste0(formatC(weights(RE_model6_comorb_ea), format="f", digits=1, width=4), "%")
 
 # Predictor = sexual abuse, outcome level = depression
-RE_model6_dep_sa <- rma(yi = Beta, sei = SE, data = Model6_dep_sa[-which(rownames(Model6_dep_sa)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
+RE_model6_dep_sa <- rma(yi = 'log(OR)', sei = SE, data = Model6_dep_sa[-which(rownames(Model6_dep_sa)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
 summary(RE_model6_dep_sa)
 OR_model6_dep_sa <- predict(RE_model6_dep_sa, transf=exp, digits=3)
 weights_model6_dep_sa <- paste0(formatC(weights(RE_model6_dep_sa), format="f", digits=1, width=4), "%")
 
 # Predictor = sexual abuse, outcome level = cardiometabolic disease
-RE_model6_cmd_sa <- rma(yi = Beta, sei = SE, data = Model6_cmd_sa[-which(rownames(Model6_cmd_sa)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
+RE_model6_cmd_sa <- rma(yi = 'log(OR)', sei = SE, data = Model6_cmd_sa[-which(rownames(Model6_cmd_sa)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
 summary(RE_model6_cmd_sa)
 OR_model6_cmd_sa <- predict(RE_model6_cmd_sa, transf=exp, digits=3)
 weights_model6_cmd_sa <- paste0(formatC(weights(RE_model6_cmd_sa), format="f", digits=1, width=4), "%")
 
 # Predictor = sexual abuse, outcome level = comorbidity
-RE_model6_comorb_sa <- rma(yi = Beta, sei = SE, data = Model6_comorb_sa[-which(rownames(Model6_comorb_sa)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
+RE_model6_comorb_sa <- rma(yi = 'log(OR)', sei = SE, data = Model6_comorb_sa[-which(rownames(Model6_comorb_sa)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
 summary(RE_model6_comorb_sa)
 OR_model6_comorb_sa <- predict(RE_model6_comorb_sa, transf=exp, digits=3)
 weights_model6_comorb_sa <- paste0(formatC(weights(RE_model6_comorb_sa), format="f", digits=1, width=4), "%")
@@ -3118,37 +3118,37 @@ crosstabmultinomial_multilevelpredictor_function(Cohort1_model7,
 
 # Run model, compute odds ratios and calculate weights of each cohort in meta-analysis
 # Predictor level = sev1, outcome level = depression
-RE_model7_sev1_dep <- rma(yi = Beta, sei = SE, data = Model7_sev1_dep[-which(rownames(Model7_sev1_dep)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
+RE_model7_sev1_dep <- rma(yi = 'log(OR)', sei = SE, data = Model7_sev1_dep[-which(rownames(Model7_sev1_dep)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
 summary(RE_model7_sev1_dep)
 OR_model7_sev1_dep <- predict(RE_model7_sev1_dep, transf=exp, digits=3)
 weights_model7_sev1_dep <- paste0(formatC(weights(RE_model7_sev1_dep), format="f", digits=1, width=4), "%")
 
 # Predictor level = sev1, outcome level = cardiometabolic disease
-RE_model7_sev1_cmd <- rma(yi = Beta, sei = SE, data = Model7_sev1_cmd[-which(rownames(Model7_sev1_cmd)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
+RE_model7_sev1_cmd <- rma(yi = 'log(OR)', sei = SE, data = Model7_sev1_cmd[-which(rownames(Model7_sev1_cmd)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
 summary(RE_model7_sev1_cmd)
 OR_model7_sev1_cmd <- predict(RE_model7_sev1_cmd, transf=exp, digits=3)
 weights_model7_sev1_cmd <- paste0(formatC(weights(RE_model7_sev1_cmd), format="f", digits=1, width=4), "%")
 
 # Predictor level = sev1, outcome level = comorbidity
-RE_model7_sev1_comorb <- rma(yi = Beta, sei = SE, data = Model7_sev1_comorb[-which(rownames(Model7_sev1_comorb)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
+RE_model7_sev1_comorb <- rma(yi = 'log(OR)', sei = SE, data = Model7_sev1_comorb[-which(rownames(Model7_sev1_comorb)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
 summary(RE_model7_sev1_comorb)
 OR_model7_sev1_comorb <- predict(RE_model7_sev1_comorb, transf=exp, digits=3)
 weights_model7_sev1_comorb <- paste0(formatC(weights(RE_model7_sev1_comorb), format="f", digits=1, width=4), "%")
 
 # Predictor level = sev2, outcome level = depression
-RE_model7_sev2_dep <- rma(yi = Beta, sei = SE, data = Model7_sev2_dep[-which(rownames(Model7_sev2_dep)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
+RE_model7_sev2_dep <- rma(yi = 'log(OR)', sei = SE, data = Model7_sev2_dep[-which(rownames(Model7_sev2_dep)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
 summary(RE_model7_sev2_dep)
 OR_model7_sev2_dep <- predict(RE_model7_sev2_dep, transf=exp, digits=3)
 weights_model7_sev2_dep <- paste0(formatC(weights(RE_model7_sev2_dep), format="f", digits=1, width=4), "%")
 
 # Predictor level = sev2, outcome level = cardiometabolic disease
-RE_model7_sev2_cmd <- rma(yi = Beta, sei = SE, data = Model7_sev2_cmd[-which(rownames(Model7_sev2_cmd)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
+RE_model7_sev2_cmd <- rma(yi = 'log(OR)', sei = SE, data = Model7_sev2_cmd[-which(rownames(Model7_sev2_cmd)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
 summary(RE_model7_sev2_cmd)
 OR_model7_sev2_cmd <- predict(RE_model7_sev2_cmd, transf=exp, digits=3)
 weights_model7_sev2_cmd <- paste0(formatC(weights(RE_model7_sev2_cmd), format="f", digits=1, width=4), "%")
 
 # Predictor level = sev2, outcome level = comorbidity
-RE_model7_sev2_comorb <- rma(yi = Beta, sei = SE, data = Model7_sev2_comorb[-which(rownames(Model7_sev2_comorb)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
+RE_model7_sev2_comorb <- rma(yi = 'log(OR)', sei = SE, data = Model7_sev2_comorb[-which(rownames(Model7_sev2_comorb)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","MACS","MIDUS","NEMESIS-1","NESDO")),]) #MIDUS is also excluded because it does not have data on sexual abuse
 summary(RE_model7_sev2_comorb)
 OR_model7_sev2_comorb <- predict(RE_model7_sev2_comorb, transf=exp, digits=3)
 weights_model7_sev2_comorb <- paste0(formatC(weights(RE_model7_sev2_comorb), format="f", digits=1, width=4), "%")
@@ -3171,19 +3171,19 @@ crosstabmultinomial_function(Cohort1_model8,
 
 # Run model, compute odds ratios and calculate weights of each cohort in meta-analysis
 # Outcome level = depression
-RE_model8_dep <- rma(yi = Beta, sei = SE, data = Model8_dep[-which(rownames(Model8_dep)%in%c("ALSPAC_partners","GenR","MACS","NESDO")),])
+RE_model8_dep <- rma(yi = 'log(OR)', sei = SE, data = Model8_dep[-which(rownames(Model8_dep)%in%c("ALSPAC_partners","GenR","MACS","NESDO")),])
 summary(RE_model8_dep)
 OR_model8_dep <- predict(RE_model8_dep, transf=exp, digits=3)
 weights_model8_dep <- paste0(formatC(weights(RE_model8_dep), format="f", digits=1, width=4), "%")
 
 # Outcome level = cardiometabolic disease
-RE_model8_cmd <- rma(yi = Beta, sei = SE, data = Model8_cmd[-which(rownames(Model8_cmd)%in%c("ALSPAC_partners","GenR","MACS","NESDO")),])
+RE_model8_cmd <- rma(yi = 'log(OR)', sei = SE, data = Model8_cmd[-which(rownames(Model8_cmd)%in%c("ALSPAC_partners","GenR","MACS","NESDO")),])
 summary(RE_model8_cmd)
 OR_model8_cmd <- predict(RE_model8_cmd, transf=exp, digits=3)
 weights_model8_cmd <- paste0(formatC(weights(RE_model8_cmd), format="f", digits=1, width=4), "%")
 
 # Outcome level = comorbidity
-RE_model8_comorb <- rma(yi = Beta, sei = SE, data = Model8_comorb[-which(rownames(Model8_comorb)%in%c("ALSPAC_partners","GenR","MACS","NESDO")),])
+RE_model8_comorb <- rma(yi = 'log(OR)', sei = SE, data = Model8_comorb[-which(rownames(Model8_comorb)%in%c("ALSPAC_partners","GenR","MACS","NESDO")),])
 summary(RE_model8_comorb)
 OR_model8_comorb <- predict(RE_model8_comorb, transf=exp, digits=3)
 weights_model8_comorb <- paste0(formatC(weights(RE_model8_comorb), format="f", digits=1, width=4), "%")
@@ -3206,19 +3206,19 @@ crosstabmultinomial_function(Cohort1_model9,
 
 # Run model, compute odds ratios and calculate weights of each cohort in meta-analysis
 # Outcome level = depression
-RE_model9_dep <- rma(yi = Beta, sei = SE, data = Model9_dep[-which(rownames(Model9_dep)%in%c("ALSPAC_partners","GenR")),]) #ALSPAC partners are also excluded because it does not have data on broad definition of cardiovascular disease
+RE_model9_dep <- rma(yi = 'log(OR)', sei = SE, data = Model9_dep[-which(rownames(Model9_dep)%in%c("ALSPAC_partners","GenR")),]) #ALSPAC partners are also excluded because it does not have data on broad definition of cardiovascular disease
 summary(RE_model9_dep)
 OR_model9_dep <- predict(RE_model9_dep, transf=exp, digits=3)
 weights_model9_dep <- paste0(formatC(weights(RE_model9_dep), format="f", digits=1, width=4), "%")
 
 # Outcome level = cardiometabolic disease
-RE_model9_cmd <- rma(yi = Beta, sei = SE, data = Model9_cmd[-which(rownames(Model9_cmd)%in%c("ALSPAC_partners","GenR")),]) #ALSPAC partners are also excluded because it does not have data on broad definition of cardiovascular disease
+RE_model9_cmd <- rma(yi = 'log(OR)', sei = SE, data = Model9_cmd[-which(rownames(Model9_cmd)%in%c("ALSPAC_partners","GenR")),]) #ALSPAC partners are also excluded because it does not have data on broad definition of cardiovascular disease
 summary(RE_model9_cmd)
 OR_model9_cmd <- predict(RE_model9_cmd, transf=exp, digits=3)
 weights_model9_cmd <- paste0(formatC(weights(RE_model9_cmd), format="f", digits=1, width=4), "%")
 
 # Outcome level = comorbidity
-RE_model9_comorb <- rma(yi = Beta, sei = SE, data = Model9_comorb[-which(rownames(Model9_comorb)%in%c("ALSPAC_partners","GenR")),]) #ALSPAC partners are also excluded because it does not have data on broad definition of cardiovascular disease
+RE_model9_comorb <- rma(yi = 'log(OR)', sei = SE, data = Model9_comorb[-which(rownames(Model9_comorb)%in%c("ALSPAC_partners","GenR")),]) #ALSPAC partners are also excluded because it does not have data on broad definition of cardiovascular disease
 summary(RE_model9_comorb)
 OR_model9_comorb <- predict(RE_model9_comorb, transf=exp, digits=3)
 weights_model9_comorb <- paste0(formatC(weights(RE_model9_comorb), format="f", digits=1, width=4), "%")
@@ -3241,19 +3241,19 @@ crosstabmultinomial_function(Cohort1_model10,
 
 # Run model, compute odds ratios and calculate weights of each cohort in meta-analysis
 # Outcome level = depression
-RE_model10_dep <- rma(yi = Beta, sei = SE, data = Model10_dep[-which(rownames(Model10_dep)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","NEMESIS-1","NEMESIS-2","NESDO")),]) #ALSPAC mothers and partners as well as NEMESIS-1 and -2 are also excluded because they do not have necessary data on medication
+RE_model10_dep <- rma(yi = 'log(OR)', sei = SE, data = Model10_dep[-which(rownames(Model10_dep)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","NEMESIS-1","NEMESIS-2","NESDO")),]) #ALSPAC mothers and partners as well as NEMESIS-1 and -2 are also excluded because they do not have necessary data on medication
 summary(RE_model10_dep)
 OR_model10_dep <- predict(RE_model10_dep, transf=exp, digits=3)
 weights_model10_dep <- paste0(formatC(weights(RE_model10_dep), format="f", digits=1, width=4), "%")
 
 # Outcome level = cardiometabolic disease
-RE_model10_cmd <- rma(yi = Beta, sei = SE, data = Model10_cmd[-which(rownames(Model10_cmd)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","NEMESIS-1","NEMESIS-2","NESDO")),]) #ALSPAC mothers and partners as well as NEMESIS-1 and -2 are also excluded because they do not have necessary data on medication
+RE_model10_cmd <- rma(yi = 'log(OR)', sei = SE, data = Model10_cmd[-which(rownames(Model10_cmd)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","NEMESIS-1","NEMESIS-2","NESDO")),]) #ALSPAC mothers and partners as well as NEMESIS-1 and -2 are also excluded because they do not have necessary data on medication
 summary(RE_model10_cmd)
 OR_model10_cmd <- predict(RE_model10_cmd, transf=exp, digits=3)
 weights_model10_cmd <- paste0(formatC(weights(RE_model10_cmd), format="f", digits=1, width=4), "%")
 
 # Outcome level = comorbidity
-RE_model10_comorb <- rma(yi = Beta, sei = SE, data = Model10_comorb[-which(rownames(Model10_comorb)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","NEMESIS-1","NEMESIS-2","NESDO")),]) #ALSPAC mothers and partners as well as NEMESIS-1 and -2 are also excluded because they do not have necessary data on medication
+RE_model10_comorb <- rma(yi = 'log(OR)', sei = SE, data = Model10_comorb[-which(rownames(Model10_comorb)%in%c("ALSPAC_mothers","ALSPAC_partners","GenR","NEMESIS-1","NEMESIS-2","NESDO")),]) #ALSPAC mothers and partners as well as NEMESIS-1 and -2 are also excluded because they do not have necessary data on medication
 summary(RE_model10_comorb)
 OR_model10_comorb <- predict(RE_model10_comorb, transf=exp, digits=3)
 weights_model10_comorb <- paste0(formatC(weights(RE_model10_comorb), format="f", digits=1, width=4), "%")
