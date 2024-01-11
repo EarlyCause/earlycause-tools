@@ -1,0 +1,3 @@
+Spermatogonial cells are the postnatal initiators of spermatogenesis, and they undertake critical proliferative and differentiation tasks throughout one’s life. They are the only type of stem cell capable of transmitting genetic information to an embryo. Chromatin in spermatogonial cells undergoes significant remodelling throughout testes development. Throughout postnatal testes development, they have significantly different transcriptional pathways. We investigated the dynamics of chromatin accessibility and gene expression during the developmental stages of postnatal day 8 (PND8), PND15, and postnatal week 21 (PNW21) using multi-omics data collected from spermatogonial cells.
+
+https://github.com/mansuylab/SC_postnatal_adult
